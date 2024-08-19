@@ -20,7 +20,8 @@ import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { getProductCateMetrics, getProductMetrics } from '@/state';
 
-export interface Product {
+export interface Product 
+{
   id: string;
   image: string;
   name: string;
@@ -65,12 +66,15 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Top Products Analysis" />
+      <CardHeader title="product category performance" />
       <Divider />
       {isLoading ? <>Loading...</>: 
       <List style={{maxHeight: '600px', overflow: 'auto'}} >
         {data.map((product : any, index) => (
-          <ListItem divider={index < products.length - 1} key={product.CategoryID }>
+          <ListItem divider={index < products.length - 1} key={product.CategoryID } 
+          sx={{
+            backgroundColor: index % 2 === 0 ? 'background.paper' : 'grey.100',
+          }}>
             {/* <ListItemAvatar>
               {product.image ? (
                 <Box component="img" src={product.image} sx={{ borderRadius: 1, height: '38px', width: '38px' }} />

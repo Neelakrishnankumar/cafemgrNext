@@ -64,7 +64,7 @@ export function Traffic({ chartSeries, labels, sx }: TrafficProps): React.JSX.El
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Weekly Day Sales" />
+      <CardHeader title="Week Days Sales" />
       <CardContent>
         <Stack spacing={2}>
           {isLoading ? <>Loading...</> : <Chart height={300} options={chartOptions} series={chartData.map((a ) => Number(a.SalesValue))} type="donut" width="100%" />}

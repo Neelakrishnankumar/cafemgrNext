@@ -28,12 +28,23 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
   const  {data ,isLoading } = useGetYearMonthWeekMetricsQuery()
 
   const salseData = data || []
-  let monthSalesAll = '0'
+  let monthSalesAll = 0
 
   if(!isLoading){
-    monthSalesAll = (Number(salseData[0]['DB_M2DSALESBLOCK3']) +  Number(salseData[0]['DB_M2DSALESBLOCK5']) +  Number(salseData[0]['DB_M2DSALESBLOCK9'])).toFixed(2)
+    monthSalesAll = (Number(salseData[0]['DB_M2DSALESBLOCK3']) +  Number(salseData[0]['DB_M2DSALESBLOCK5']) +  Number(salseData[0]['DB_M2DSALESBLOCK9']))
   }
 
+  function formatNumber(num: number): string {
+    if (num >= 1_000) {
+         return (num / 1_000).toFixed(1) + 'K';
+     } else {
+         return num.toString();
+     }
+ }
+
+
+
+const formatted = formatNumber(monthSalesAll);
   return (
     <Card sx={sx}>
       <CardContent>
@@ -43,7 +54,7 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
               <Typography color="text.secondary" variant="overline">
                 M2D Sales
               </Typography>
-              <Typography variant="h4">₹{isLoading ? '...': monthSalesAll}</Typography>
+              <Typography variant="h4">₹{isLoading ? '...': formatted}</Typography>
             </Stack>
             <Avatar sx={{ backgroundColor: 'var(--mui-palette-success-main)', height: '56px', width: '56px' }}>
             <CurrencyInr fontSize="var(--icon-fontSize-lg)" />

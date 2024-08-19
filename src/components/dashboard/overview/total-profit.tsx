@@ -21,11 +21,23 @@ export function TotalProfit({ value, sx }: TotalProfitProps): React.JSX.Element 
   const  {data ,isLoading } = useGetYearMonthWeekMetricsQuery()
 
   const salseData = data || []
-  let SalesAll = '0'
+  let SalesAll = 0
 
   if(!isLoading){
-    SalesAll = (Number(salseData[0]['DB_LWDSALESBLOCK3']) +  Number(salseData[0]['DB_LWDSALESBLOCK5']) +  Number(salseData[0]['DB_LWDSALESBLOCK9'])).toFixed(2)
+    SalesAll = (Number(salseData[0]['DB_LWDSALESBLOCK3']) +  Number(salseData[0]['DB_LWDSALESBLOCK5']) +  Number(salseData[0]['DB_LWDSALESBLOCK9']))
   }
+
+  function formatNumber(num: number): string {
+    if (num >= 1_000) {
+         return (num / 1_000).toFixed(1) + 'K';
+     } else {
+         return num.toString();
+     }
+ }
+
+
+
+const formatted = formatNumber(SalesAll);
   return (
     <Card sx={sx}>
       <CardContent>
@@ -34,7 +46,7 @@ export function TotalProfit({ value, sx }: TotalProfitProps): React.JSX.Element 
             <Typography color="text.secondary" variant="overline">
               Last Day Sales
             </Typography>
-            <Typography variant="h4">₹{isLoading ? '...' : SalesAll}</Typography>
+            <Typography variant="h4">₹{isLoading ? '...' : formatted}</Typography>
           </Stack>
           <Avatar sx={{ backgroundColor: 'var(--mui-palette-primary-main)', height: '56px', width: '56px' }}>
             <ReceiptIcon fontSize="var(--icon-fontSize-lg)" />

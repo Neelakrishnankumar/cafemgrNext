@@ -34,6 +34,20 @@ export function Week2DateSales({ diff, trend, sx, value }: BudgetProps): React.J
     weekSalesAll = Number(salseData[0]['DB_W2DSALESBLOCK3']) +  Number(salseData[0]['DB_W2DSALESBLOCK5']) +  Number(salseData[0]['DB_W2DSALESBLOCK9'])
   }
 
+  function formatNumber(num: number): string {
+   if (num >= 1_000) {
+        return (num / 1_000).toFixed(1) + 'K';
+    } else {
+        return num.toString();
+    }
+}
+
+// Example usage:
+
+const formatted = formatNumber(weekSalesAll);
+
+
+
   return (
     <Card sx={sx}>
       <CardContent>
@@ -43,7 +57,7 @@ export function Week2DateSales({ diff, trend, sx, value }: BudgetProps): React.J
               <Typography color="text.secondary" variant="overline">
                 W2D Sales
               </Typography>
-              <Typography variant="h4">₹{isLoading ? '...' : weekSalesAll}</Typography>
+              <Typography variant="h4">₹{isLoading ? '...' : formatted}</Typography>
             </Stack>
             <Avatar sx={{ backgroundColor: 'var(--mui-palette-warning-main)', height: '56px', width: '56px' }}>
             <CurrencyInr fontSize="var(--icon-fontSize-lg)" />

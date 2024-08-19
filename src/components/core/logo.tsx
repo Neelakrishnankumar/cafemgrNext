@@ -25,7 +25,7 @@ export function Logo({ color = 'light', emblem, height = HEIGHT, width = WIDTH }
   if (emblem) {
     url = color === 'light' ? '/assets/logo-emblem.svg' : '/assets/logo-emblem--dark.svg';
   } else {
-    url = color === 'light' ? '/assets/logo.svg' : '/assets/logo--dark.svg';
+    url = color === 'light' ? '/assets/Logo.png' : '/assets/Logo.png';
   }
 
   return <Box alt="logo" component="img" height={height} src={url} width={width} />;
@@ -52,7 +52,6 @@ export function DynamicLogo({
   return (
     <NoSsr fallback={<Box sx={{ height: `${height}px`, width: `${width}px` }} />}>
       <Logo color={color} height={height} width={width}  />
-      <Typography>Cafe Mgr</Typography>
     </NoSsr>
   );
 }

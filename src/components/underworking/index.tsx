@@ -25,7 +25,7 @@ export default function UnderWorking(): React.JSX.Element {
           />
         </Box>
         <Typography variant="h3" sx={{ textAlign: 'center' }}>
-          503 : The page you are looking for isn&apos;t here , Under Construction
+          503 : The page you looking for is under construction
         </Typography>
         {/* <Typography color="text.secondary" variant="body1" sx={{ textAlign: 'center' }}>
           This page is Under Construction

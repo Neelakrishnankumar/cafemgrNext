@@ -43,7 +43,7 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
   const isLoading = useAppSelector((state) => state.global.productPerformanceLoading)
   return (
     <Card sx={sx}>
-      <CardHeader title="Product Proformance" />
+      <CardHeader title="Products Performance" />
       <Divider />
       <Box sx={{ overflowX: 'auto' }}>
         {isLoading ? <>loading..</>:
@@ -55,11 +55,16 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
             </TableRow>
           </TableHead>
           <TableBody>
-            {productData.map((order:any) => {
+            {productData.map((order:any,index: number) => {
               // const { label, color } = statusMap[order.status] ?? { label: 'Unknown', color: 'default' };
 
               return (
-                <TableRow hover key={order.ProductID}>
+                
+                <TableRow hover key={order.ProductID}
+                sx={{
+                    backgroundColor: index % 2 === 0 ? 'background.paper' : 'grey.400',
+                  }}
+                >
                   <TableCell>{order.ProductName}</TableCell>
                   <TableCell>₹{order.SalesValue}</TableCell>
                   {/* <TableCell>{dayjs(order.createdAt).format('MMM D, YYYY')}</TableCell> */}

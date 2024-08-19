@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
@@ -19,7 +20,9 @@ import { UserPopover } from './user-popover';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 
+
 const states = [
+  { value: 'a', label: 'All' },
   { value: 'alabama', label: 'Block 3' },
   { value: 'new-york', label: 'Block 5' },
   { value: 'san-francisco', label: 'Block 9' },
@@ -31,6 +34,10 @@ export function MainNav(): React.JSX.Element {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
 
   const userPopover = usePopover<HTMLDivElement>();
+
+  const [selectedState, setSelectedState] = useState(states[0].value);
+
+
 
   return (
     <React.Fragment>
@@ -60,7 +67,9 @@ export function MainNav(): React.JSX.Element {
             </IconButton>
             <FormControl sx={{width:150}}>
                 <InputLabel>Block</InputLabel>
-                <Select defaultValue="New York" label="State" name="state" variant="outlined">
+                <Select defaultValue="New York" label="State" name="state" variant="outlined"
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}>
                   {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}

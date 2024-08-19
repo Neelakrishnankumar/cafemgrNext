@@ -17,7 +17,7 @@ import type { Integration } from '@/components/dashboard/integrations/integratio
 import { CompaniesFilters } from '@/components/dashboard/integrations/integrations-filters';
 import UnderWorking from '@/components/underworking';
 
-export const metadata = { title: `Integrations | Dashboard | ${config.site.name}` } satisfies Metadata;
+export const metadata = { title: `P&DL | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 const integrations = [
   {

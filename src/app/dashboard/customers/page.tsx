@@ -14,7 +14,7 @@ import { CustomersTable } from '@/components/dashboard/customer/customers-table'
 import type { Customer } from '@/components/dashboard/customer/customers-table';
 import UnderWorking from '@/components/underworking';
 
-export const metadata = { title: `Customers | Dashboard | ${config.site.name}` } satisfies Metadata;
+export const metadata = { title: `Purcahse Analysis | Dashboard | ${config.site.name}` } satisfies Metadata;
 
 const customers = [
   {

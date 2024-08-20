@@ -35,7 +35,7 @@ export function SideNav(): React.JSX.Element {
         '--NavItem-icon-color': 'var(--mui-palette-neutral-400)',
         '--NavItem-icon-active-color': 'var(--mui-palette-primary-contrastText)',
         '--NavItem-icon-disabled-color': 'var(--mui-palette-neutral-600)',
-        bgcolor: 'var(--SideNav-background)',
+        bgcolor: '#F9FAFB',
         color: 'var(--SideNav-color)',
         display: { xs: 'none', lg: 'flex' },
         flexDirection: 'column',
@@ -51,9 +51,11 @@ export function SideNav(): React.JSX.Element {
       }}
     >
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Box  sx={{ display: 'inline-flex',alignItems:'center' }}>
-          <Logo  width={100} height={100}  />
-          <Typography fontSize={25}>Cafe Mgr</Typography>
+        <Box sx={{ display: 'inline-flex', alignItems: 'center' }}>
+          <Logo width={100} height={80} />
+          <Typography color={'black'} sx={{ mt: 2, fontFamily: 'sans-serif' }} fontWeight={'bold'} fontSize={20}>
+            CAFE MGR
+          </Typography>
         </Box>
         {/* <Box
           sx={{

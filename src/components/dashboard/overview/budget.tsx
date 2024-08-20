@@ -34,6 +34,18 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
   }
 
 
+  function formatNumber(num: number): string {
+    if (num >= 1_000) {
+         return (num / 1_000).toFixed(1) + 'K';
+     } else {
+         return num.toString();
+     }
+ }
+
+// Example usage:
+
+const formatted = formatNumber(yearSalesAll);
+
   return (
     <Card sx={sx}>
       <CardContent>
@@ -43,7 +55,7 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
               <Typography color="text.secondary" variant="overline">
                 Y2D Sales
               </Typography>
-              <Typography variant="h4">₹{isLoading ? '...' : yearSalesAll}</Typography>
+              <Typography variant="h4">₹{isLoading ? '...' : formatted}</Typography>
             </Stack>
             <Avatar sx={{ backgroundColor: 'var(--mui-palette-primary-main)', height: '56px', width: '56px' }}>
               <CurrencyInr fontSize="var(--icon-fontSize-lg)" />

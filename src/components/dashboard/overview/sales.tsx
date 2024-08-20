@@ -42,9 +42,9 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
   };
 
   React.useEffect(() => {
-    if (status == 'idle') {
+    // if (status == 'idle') {
       dispatch(fetchFastMovingChart(idata));
-    }
+    // }
   }, []);
 
   const chartOptions = useChartOptions(xaxis);

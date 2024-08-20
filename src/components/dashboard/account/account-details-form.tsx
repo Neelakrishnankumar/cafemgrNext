@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Unstable_Grid2';
+import { useUser } from '@/hooks/use-user';
 
 const states = [
   { value: 'alabama', label: 'Alabama' },
@@ -22,6 +23,8 @@ const states = [
 ] as const;
 
 export function AccountDetailsForm(): React.JSX.Element {
+
+  const { user } = useUser()
   return (
     <form
       onSubmit={(event) => {
@@ -36,43 +39,37 @@ export function AccountDetailsForm(): React.JSX.Element {
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>First name</InputLabel>
-                <OutlinedInput defaultValue="Sofia" label="First name" name="firstName" />
+                <OutlinedInput value={user.EMP_NAME}  label="First name" name="firstName" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Last name</InputLabel>
-                <OutlinedInput defaultValue="Rivers" label="Last name" name="lastName" />
+                <OutlinedInput defaultValue="A" label="Last name" name="lastName" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth required>
                 <InputLabel>Email address</InputLabel>
-                <OutlinedInput defaultValue="sofia@devias.io" label="Email address" name="email" />
+                <OutlinedInput value={user.EMP_EMAIL} label="Email address" name="email" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth>
                 <InputLabel>Phone number</InputLabel>
-                <OutlinedInput label="Phone number" name="phone" type="tel" />
+                <OutlinedInput label="Phone number" value={user.EMP_PHNO}  name="phone"  />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>State</InputLabel>
-                <Select defaultValue="New York" label="State" name="state" variant="outlined">
-                  {states.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
+            <FormControl fullWidth>
+                <InputLabel>Password</InputLabel>
+                <OutlinedInput label="Password" value={user.EMP_PASSWORD}  name="password" type="password" />
               </FormControl>
             </Grid>
             <Grid md={6} xs={12}>
               <FormControl fullWidth>
                 <InputLabel>City</InputLabel>
-                <OutlinedInput label="City" />
+                <OutlinedInput label="City" value={user.EMP_LOCALADDRESS} />
               </FormControl>
             </Grid>
           </Grid>

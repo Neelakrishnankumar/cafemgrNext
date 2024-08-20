@@ -43,36 +43,36 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
   const [response , setResponse ] = React.useState([])
   const [loading , setLoading ] = React.useState(false)
   const [status , setStaus ] = React.useState('idle')
-  // React.useEffect(() =>{
+  React.useEffect(() =>{
    
-  //   if(status == 'idle'){
-  //     setLoading(true)
-  //     axios.get('http://localhost/server/cafemgr/api/ProductYearSales.php', {
-  //        headers: {
-  //          Authorization:
-  //            'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
-  //        },
-  //      }).then((response) => {
-  //        console.log("🚀 ~ React.useEffect ~ response:", response)
+    if(status == 'idle'){
+      setLoading(true)
+      axios.get('http://localhost/server/cafemgr/api/ProductYearSales.php', {
+         headers: {
+           Authorization:
+             'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
+         },
+       }).then((response) => {
+         console.log("🚀 ~ React.useEffect ~ response:", response)
    
-  //        if(response.status == 200){
-  //          setLoading(false)
-  //          setResponse(response.data)
-  //          setStaus('fulfilled')
-  //        }else{
+         if(response.status == 200){
+           setLoading(false)
+           setResponse(response.data)
+           setStaus('fulfilled')
+         }else{
    
-  //        }
+         }
          
-  //      });
-  //   }
+       });
+    }
  
-  // },[])
+  },[])
 
 
-  if ( isLoading) {
+  if ( loading) {
     content = <CircularProgress />;
-  } else if (!isLoading && isSuccess) {
-    content = <Chart height={350} options={chartOptions} series={localArray.filter((value) =>value)} type="bar" width="100%" />;
+  } else if (!loading ) {
+    content = <Chart height={350} options={chartOptions} series={response} type="bar" width="100%" />;
   }
 
 

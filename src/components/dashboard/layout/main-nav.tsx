@@ -20,6 +20,7 @@ import { UserPopover } from './user-popover';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { blockChange } from '@/state';
+import { useUser } from '@/hooks/use-user';
 
 
 const states = [
@@ -41,6 +42,9 @@ export function MainNav(): React.JSX.Element {
   const block = useAppSelector((state) => state.global.block);
  const dispatch = useAppDispatch()
 
+  const  {user} = useUser()
+
+  const imageUrl = user?.EMP_IMAGENAME || 'defaultImage'
 
   return (
     <React.Fragment>
@@ -98,13 +102,13 @@ export function MainNav(): React.JSX.Element {
             <Avatar
               onClick={userPopover.handleOpen}
               ref={userPopover.anchorRef}
-              src="/assets/avatar.png"
+              src={`http://cafemgr.benmoredata.com/uploads/images/${imageUrl}`}
               sx={{ cursor: 'pointer' }}
             />
           </Stack>
         </Stack>
       </Box>
-      <UserPopover anchorEl={userPopover.anchorRef.current} onClose={userPopover.handleClose} open={userPopover.open} />
+      <UserPopover anchorEl={userPopover.anchorRef.current} onClose={userPopover.handleClose} open={userPopover.open}  />
       <MobileNav
         onClose={() => {
           setOpenNav(false);

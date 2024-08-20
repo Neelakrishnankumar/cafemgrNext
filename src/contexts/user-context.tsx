@@ -7,7 +7,7 @@ import { authClient } from '@/lib/auth/client';
 import { logger } from '@/lib/default-logger';
 
 export interface UserContextValue {
-  user: User | null;
+  user: any | null;
   error: string | null;
   isLoading: boolean;
   checkSession?: () => Promise<void>;

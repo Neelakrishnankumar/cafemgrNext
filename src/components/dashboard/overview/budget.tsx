@@ -12,6 +12,7 @@ import { ArrowUp as ArrowUpIcon } from '@phosphor-icons/react/dist/ssr/ArrowUp';
 import { CurrencyDollar as CurrencyDollarIcon } from '@phosphor-icons/react/dist/ssr/CurrencyDollar';
 import { CurrencyInr } from '@phosphor-icons/react/dist/ssr';
 import { useGetYearMonthWeekMetricsQuery } from '@/state/api';
+import { useAppSelector } from '@/app/redux';
 
 export interface BudgetProps {
   diff?: number;
@@ -29,14 +30,20 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
   const salseData = data || []
   let yearSalesAll = 0
 
-  if(!isLoading){
+
+
+  const block = useAppSelector((state) => state.global.block);
+
+  if(!isLoading && block == '0'){
     yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3']) +  Number(salseData[0]['DB_Y2DSALESBLOCK5']) +  Number(salseData[0]['DB_Y2DSALESBLOCK9'])
   }
-
+  if(!isLoading && block == '3'){
+    yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3'])
+  }
 
   function formatNumber(num: number): string {
     if (num >= 1_000) {
-         return (num / 1_000).toFixed(1) + 'K';
+         return (num / 1_000).toFixed(0) + 'K';
      } else {
          return num.toString();
      }

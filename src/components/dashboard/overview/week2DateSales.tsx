@@ -25,7 +25,6 @@ export function Week2DateSales({ diff, trend, sx, value }: BudgetProps): React.J
   const trendColor = trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)';
 
   const  {data ,isLoading } = useGetYearMonthWeekMetricsQuery()
-  console.log("🚀 ~ Week2DateSales ~ data:", data)
 
   const salseData = data || []
   let weekSalesAll = 0
@@ -36,13 +35,13 @@ export function Week2DateSales({ diff, trend, sx, value }: BudgetProps): React.J
 
   function formatNumber(num: number): string {
    if (num >= 1_000) {
-        return (num / 1_000).toFixed(1) + 'K';
+        return (num / 1_000).toFixed(0) + 'K';
     } else {
         return num.toString();
     }
 }
 
-// Example usage:
+
 
 const formatted = formatNumber(weekSalesAll);
 

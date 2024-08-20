@@ -6,8 +6,19 @@ interface productCate {
   SlNo: number;
 }
 
+interface productCategory {
+  CategoryID: string;
+  CategoryName: string;
+  SalesValue: string;
+  SlNo: number;
+}
+
 interface weekdays {
   data: productCate[];
+}
+
+interface response {
+  data: productCategory[];
 }
 
 interface yearSlase {
@@ -33,23 +44,35 @@ export const api = createApi({
     headers: { Authorization: `Bearer ${token}` },
   }),
   reducerPath: 'api',
-  tagTypes: ['ProductsCate', 'weekdays', 'topcards'],
+  tagTypes: ['weekdays', 'topcards', 'Saleshistory'],
   endpoints: (build) => ({
-    // dashboard product analysis category get endpoints function
-    getProductCateMetrics: build.query<[], void>({
-      query: () => '/api/get/saleshistory',
-      providesTags: ['ProductsCate'],
-    }),
-    // dashboard product analysis category get endpoints function
+    // // dashboard product analysis category get endpoints function
     getWeekDaysMetrics: build.query<weekdays, void>({
       query: () => `/api/get/saleshistory/daywisesales`,
       providesTags: ['weekdays'],
     }),
+    // dashboard year month and week total sales get endpoints function
     getYearMonthWeekMetrics: build.query<yearSlase[], void>({
       query: () => `/api/get/dashbord`,
       providesTags: ['topcards'],
     }),
+    // dashboard year month and week total sales get endpoints function
+    getSalesMetrics: build.query<response, void>({
+      query: () => `/api/get/saleshistory`,
+      providesTags: ['Saleshistory'],
+    }),
+    getYearsalesMetrics: build.query<[], void>({
+      query: () => ({
+        url:'http://localhost/server/cafemgr/api/ProductYearSales.php',
+        headers:{
+          Authorization:
+          'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
+        }
+      }),
+      providesTags: ['Saleshistory'],
+    }),
+    //
   }),
 });
 
-export const { useGetProductCateMetricsQuery, useGetWeekDaysMetricsQuery, useGetYearMonthWeekMetricsQuery } = api;
+export const { useGetYearMonthWeekMetricsQuery, useGetWeekDaysMetricsQuery,useGetSalesMetricsQuery,useGetYearsalesMetricsQuery } = api;

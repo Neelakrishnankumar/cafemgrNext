@@ -18,14 +18,15 @@ import { usePopover } from '@/hooks/use-popover';
 import { MobileNav } from './mobile-nav';
 import { UserPopover } from './user-popover';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-
+import { useAppDispatch, useAppSelector } from '@/app/redux';
+import { blockChange } from '@/state';
 
 
 const states = [
-  { value: 'a', label: 'All' },
-  { value: 'alabama', label: 'Block 3' },
-  { value: 'new-york', label: 'Block 5' },
-  { value: 'san-francisco', label: 'Block 9' },
+  { value: '0',label: 'All' },
+  { value: '3', label: 'Block 3' },
+  { value: '5', label: 'Block 5' },
+  { value: '9', label: 'Block 9' },
 ] as const;
 
 
@@ -35,8 +36,10 @@ export function MainNav(): React.JSX.Element {
 
   const userPopover = usePopover<HTMLDivElement>();
 
-  const [selectedState, setSelectedState] = useState(states[0].value);
+  const [selectedState, setSelectedState] = useState('');
 
+  const block = useAppSelector((state) => state.global.block);
+ const dispatch = useAppDispatch()
 
 
   return (
@@ -68,8 +71,9 @@ export function MainNav(): React.JSX.Element {
             <FormControl sx={{width:150}}>
                 <InputLabel>Block</InputLabel>
                 <Select defaultValue="New York" label="State" name="state" variant="outlined"
-                value={selectedState}
-                onChange={(e) => setSelectedState(e.target.value)}>
+                value={block}
+                // onChange={(e) => setSelectedState(e.target.value)}>
+                onChange={(e) => dispatch(blockChange(e.target.value))}>
                   {states.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}

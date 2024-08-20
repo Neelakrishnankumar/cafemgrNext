@@ -13,6 +13,7 @@ import { Users as UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 import { CurrencyDollar as CurrencyDollarIcon } from '@phosphor-icons/react/dist/ssr/CurrencyDollar';
 import { CurrencyInr } from '@phosphor-icons/react/dist/ssr';
 import { useGetYearMonthWeekMetricsQuery } from '@/state/api';
+import { useAppSelector } from '@/app/redux';
 
 export interface TotalCustomersProps {
   diff?: number;
@@ -29,9 +30,20 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
 
   const salseData = data || []
   let monthSalesAll = 0
+  
+  const block = useAppSelector((state) => state.global.block);
 
-  if(!isLoading){
+  if(!isLoading && block == '0'){
     monthSalesAll = (Number(salseData[0]['DB_M2DSALESBLOCK3']) +  Number(salseData[0]['DB_M2DSALESBLOCK5']) +  Number(salseData[0]['DB_M2DSALESBLOCK9']))
+  }
+  if(!isLoading && block == '3'){
+    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK3'])
+  }
+  if(!isLoading && block == '5'){
+    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK5'])
+  }
+  if(!isLoading && block == '9'){
+    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK9'])
   }
 
   function formatNumber(num: number): string {

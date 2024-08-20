@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { ArrowDown as ArrowDownIcon } from '@phosphor-icons/react/dist/ssr/ArrowDown';
 import { ArrowUp as ArrowUpIcon } from '@phosphor-icons/react/dist/ssr/ArrowUp';
 import { CurrencyDollar as CurrencyDollarIcon } from '@phosphor-icons/react/dist/ssr/CurrencyDollar';
-
+import { useAppSelector } from '@/app/redux';
 import { CurrencyInr } from '@phosphor-icons/react/dist/ssr';
 import { useGetYearMonthWeekMetricsQuery } from '@/state/api';
 export interface BudgetProps {
@@ -29,9 +29,20 @@ export function Week2DateSales({ diff, trend, sx, value }: BudgetProps): React.J
   const salseData = data || []
   let weekSalesAll = 0
 
-  if(!isLoading){
+  const block = useAppSelector((state) => state.global.block);
+  if(!isLoading && block == '0'){
     weekSalesAll = Number(salseData[0]['DB_W2DSALESBLOCK3']) +  Number(salseData[0]['DB_W2DSALESBLOCK5']) +  Number(salseData[0]['DB_W2DSALESBLOCK9'])
   }
+  if(!isLoading && block == '3'){
+    weekSalesAll = Number(salseData[0]['DB_W2DSALESBLOCK3']) 
+  }
+  if(!isLoading && block == '5'){
+    weekSalesAll = Number(salseData[0]['DB_W2DSALESBLOCK5'])
+  }
+  if(!isLoading && block == '9'){
+    weekSalesAll = Number(salseData[0]['DB_W2DSALESBLOCK9'])
+  }
+  
 
   function formatNumber(num: number): string {
    if (num >= 1_000) {

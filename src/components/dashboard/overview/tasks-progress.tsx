@@ -13,8 +13,11 @@ export interface TasksProgressProps {
   value: number;
 }
 
+
+
 export function TasksProgress({ value, sx }: TasksProgressProps): React.JSX.Element {
-  return (
+
+    return (
     <Card sx={sx}>
       <CardContent>
         <Stack spacing={2}>

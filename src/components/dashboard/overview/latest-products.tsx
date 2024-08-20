@@ -73,7 +73,7 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
         {data.map((product : any, index) => (
           <ListItem divider={index < products.length - 1} key={product.CategoryID } 
           sx={{
-            backgroundColor: index % 2 === 0 ? 'background.paper' : 'grey.100',
+            backgroundColor: index % 2 === 0 ? 'background.paper' : 'grey.400',
           }}>
             {/* <ListItemAvatar>
               {product.image ? (

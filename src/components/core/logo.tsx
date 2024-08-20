@@ -55,3 +55,19 @@ export function DynamicLogo({
     </NoSsr>
   );
 }
+export default function CenteredLogoPage(): React.JSX.Element {
+  return (
+    <Box
+      sx={{
+        height: '100vh',             // Full viewport height
+        width: '100vw',              // Full viewport width
+        display: 'flex',             // Flexbox layout
+        justifyContent: 'center',    // Center horizontally
+        alignItems: 'center',        // Center vertically
+        backgroundColor: '#f0f0f0',  // Optional background color
+      }}
+    >
+      <DynamicLogo height={120} width={120} /> {/* Adjust size as needed */}
+    </Box>
+  );
+}

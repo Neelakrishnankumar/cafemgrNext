@@ -19,6 +19,7 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
         flexDirection: 'column',
         gridTemplateColumns: '1fr',
         minHeight: '100%',
+        backgroundImage: `url('/assets/background.jpg')`, 
       }}
     >
       <Box sx={{ display: 'flex', flex: '1 1 auto', flexDirection: 'column' }}>

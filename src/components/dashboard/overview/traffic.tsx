@@ -16,7 +16,7 @@ import type { ApexOptions } from 'apexcharts';
 
 import { Chart } from '@/components/core/chart';
 import { useGetWeekDaysMetricsQuery } from '@/state/api';
-
+// 
 const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
 
 export interface TrafficProps {
@@ -57,8 +57,6 @@ export function Traffic({ chartSeries, labels, sx }: TrafficProps): React.JSX.El
     } 
   
   })
-  console.log("🚀 ~ Traffic ~ cate:", cate)
-  console.log("🚀 ~ Traffic ~ data:", data)
   const chartOptions = useChartOptions(cate);
 
 

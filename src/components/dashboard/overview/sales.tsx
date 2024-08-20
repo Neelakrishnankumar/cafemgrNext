@@ -17,6 +17,9 @@ import { ArrowRight as ArrowRightIcon } from '@phosphor-icons/react/dist/ssr/Arr
 import type { ApexOptions } from 'apexcharts';
 
 import Chart from 'react-apexcharts';
+import { useGetYearsalesMetricsQuery } from '@/state/api';
+import { array } from 'zod';
+import axios from 'axios';
 
 // import { Chart } from '@/components/core/chart';
 
@@ -26,35 +29,56 @@ export interface SalesProps {
 }
 
 export function Sales({ sx }: SalesProps): React.JSX.Element {
-  const xaxis = useAppSelector((state) => state.global.xaxis);
-  const yaxis = useAppSelector((state) => state.global.yaxis);
-  console.log("🚀 ~ Sales ~ yaxis:", yaxis)
-  const loading = useAppSelector((state) => state.global.isLoading);
-  const status = useAppSelector((state) => state.global.status);
 
-  const dispatch = useAppDispatch();
 
-  const idata = {
-    ToDate: '2024-08-13',
-    FromDate: '2024-08-06',
-    Limit: 10,
-    LocationID: '',
-  };
+  const chartOptions = useChartOptions();
 
-  React.useEffect(() => {
-    // if (status == 'idle') {
-      dispatch(fetchFastMovingChart(idata));
-    // }
-  }, []);
+  const  {data ,isLoading,isSuccess } = useGetYearsalesMetricsQuery()
 
-  const chartOptions = useChartOptions(xaxis);
-
+  const salseData = data || []
+  const salseDatacopy = [...salseData] || []
   let content = <Box>No Content</Box>;
-  if (status == 'pending' && loading) {
+  const [localArray, setLocalArray] = React.useState([...salseDatacopy]);
+
+  const [response , setResponse ] = React.useState([])
+  const [loading , setLoading ] = React.useState(false)
+  const [status , setStaus ] = React.useState('idle')
+  // React.useEffect(() =>{
+   
+  //   if(status == 'idle'){
+  //     setLoading(true)
+  //     axios.get('http://localhost/server/cafemgr/api/ProductYearSales.php', {
+  //        headers: {
+  //          Authorization:
+  //            'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
+  //        },
+  //      }).then((response) => {
+  //        console.log("🚀 ~ React.useEffect ~ response:", response)
+   
+  //        if(response.status == 200){
+  //          setLoading(false)
+  //          setResponse(response.data)
+  //          setStaus('fulfilled')
+  //        }else{
+   
+  //        }
+         
+  //      });
+  //   }
+ 
+  // },[])
+
+
+  if ( isLoading) {
     content = <CircularProgress />;
-  } else if (status == 'fulfilled' && !loading) {
-    content = <Chart height={350} options={chartOptions} series={yaxis} type="bar" width="100%" />;
+  } else if (!isLoading && isSuccess) {
+    content = <Chart height={350} options={chartOptions} series={localArray.filter((value) =>value)} type="bar" width="100%" />;
   }
+
+
+
+
+ 
 
   return (
     <Card sx={sx}>
@@ -79,7 +103,7 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
   );
 }
 
-function useChartOptions(xaxis: any): ApexOptions {
+function useChartOptions(): ApexOptions {
   const theme = useTheme();
 
   return {

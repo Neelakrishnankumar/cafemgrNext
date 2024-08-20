@@ -21,6 +21,7 @@ import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useUser } from '@/hooks/use-user';
 import { assert } from 'console';
+import { DynamicLogo } from '../core/logo';
 
 
 const schema = zod.object({
@@ -30,7 +31,7 @@ const schema = zod.object({
 
 type Values = zod.infer<typeof schema>;
 
-const defaultValues = { email: 'sofia@devias.io', password: 'Secret1' } satisfies Values;
+const defaultValues = { email: 'nk@gmail.com', password: 'Pass@123' } satisfies Values;
 
 export function SignInForm(): React.JSX.Element {
   const router = useRouter();
@@ -76,19 +77,23 @@ export function SignInForm(): React.JSX.Element {
     backgroundColor: '#fff', 
     padding: 4,              
     borderRadius: 2,         
-    boxShadow: 3,             
+    boxShadow: 3,  
+  
   }}
+
   >
    
+   
     
-      <Stack spacing={1}>
-        <Typography variant="h4">Sign in</Typography>
-        <Typography color="text.secondary" variant="body2">
+      <Stack spacing={1} alignContent='center' alignItems='center'>
+      <DynamicLogo colorDark="light" colorLight="dark" height={150} width={150}  />
+        <Typography variant="h4" mb={3} mt={3}>Sign in</Typography>
+        {/* <Typography color="text.secondary" variant="body2">
           Don&apos;t have an account?{' '}
           <Link component={RouterLink} href={paths.auth.signUp} underline="hover" variant="subtitle2">
             Sign up
           </Link>
-        </Typography>
+        </Typography> */}
       </Stack>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
@@ -143,7 +148,7 @@ export function SignInForm(): React.JSX.Element {
             </Link>
           </div>
           {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
-          <Button disabled={isPending} type="submit" variant="contained">
+          <Button disabled={isPending} type="submit" variant="contained" sx={{backgroundColor: 'var(--mui-palette-success-main)' }}>
             Sign in
           </Button>
         </Stack>

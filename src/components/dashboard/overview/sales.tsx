@@ -21,10 +21,9 @@ import { useGetYearsalesMetricsQuery } from '@/state/api';
 import { array } from 'zod';
 import axios from 'axios';
 
-// import { Chart } from '@/components/core/chart';
-
+//import { Chart } from '@/components/core/chart';
 export interface SalesProps {
-  // chartSeries: { name: string; data: number[] }[];
+//chartSeries: { name: string; data: number[] }[];
   sx?: SxProps;
 }
 
@@ -47,7 +46,7 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
    
     if(status == 'idle'){
       setLoading(true)
-      axios.get('http://localhost/server/cafemgr/api/ProductYearSales.php', {
+      axios.get('http://cafemgr.benmoredata.com/api/ProductYearSales.php', {
          headers: {
            Authorization:
              'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',

@@ -36,13 +36,13 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
   if(!isLoading && block == '0'){
     monthSalesAll = (Number(salseData[0]['DB_M2DSALESBLOCK3']) +  Number(salseData[0]['DB_M2DSALESBLOCK5']) +  Number(salseData[0]['DB_M2DSALESBLOCK9']))
   }
-  if(!isLoading && block == '3'){
+  if(!isLoading && block == '1034'){
     monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK3'])
   }
-  if(!isLoading && block == '5'){
+  if(!isLoading && block == '1036'){
     monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK5'])
   }
-  if(!isLoading && block == '9'){
+  if(!isLoading && block == '1035'){
     monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK9'])
   }
 

@@ -37,13 +37,13 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
   if(!isLoading && block == '0'){
     yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3']) +  Number(salseData[0]['DB_Y2DSALESBLOCK5']) +  Number(salseData[0]['DB_Y2DSALESBLOCK9'])
   }
-  if(!isLoading && block == '3'){
+  if(!isLoading && block == '1034'){
     yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3'])
   }
-  if(!isLoading && block == '5'){
+  if(!isLoading && block == '1036'){
     yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK5'])
   }
-  if(!isLoading && block == '9'){
+  if(!isLoading && block == '1035'){
     yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK9'])
   }
 

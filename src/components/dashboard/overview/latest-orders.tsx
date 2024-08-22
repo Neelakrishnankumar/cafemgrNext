@@ -41,6 +41,9 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
 
   const productData = useAppSelector((state) => state.global.productPerformanceData)
   const isLoading = useAppSelector((state) => state.global.productPerformanceLoading)
+
+  // console.log('Product Data:', productData);
+
   return (
     <Card sx={sx}>
       <CardHeader title="Products Performance" />

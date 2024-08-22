@@ -37,6 +37,11 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
   const disatch = useAppDispatch();
 
   const { data, isLoading } = useGetSalesMetricsQuery();
+
+  console.log('API data:', data);
+  
+   
+
   const CategorySummary = data?.data || [];
   return (
     <Card sx={sx}>

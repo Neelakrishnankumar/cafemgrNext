@@ -68,7 +68,7 @@ export function Traffic({ chartSeries, labels, sx }: { chartSeries: number[]; la
   const aggregatedSales = aggregateSales(salesData); // No hook here
 
   const location = useAppSelector((state) => state.global.block); // Hook inside the component
-
+    console.log("Location", location);
   let locationFilteredValue = aggregatedSales;
   if (location !== '0') {
     locationFilteredValue = aggregatedSales.filter((item) => item.LocationID === location);

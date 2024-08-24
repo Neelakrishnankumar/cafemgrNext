@@ -46,7 +46,7 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
    
     if(status == 'idle'){
       setLoading(true)
-      axios.get('http://cafemgr.benmoredata.com/api/ProductYearSales.php', {
+      axios.get('https://cafemgrlapi.beyondexs.com/api/get/saleshistory/yearwisesales', {
          headers: {
            Authorization:
              'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
@@ -56,7 +56,7 @@ export function Sales({ sx }: SalesProps): React.JSX.Element {
    
          if(response.status == 200){
            setLoading(false)
-           setResponse(response.data)
+          //  setResponse(response.data)
            setStaus('fulfilled')
          }else{
    

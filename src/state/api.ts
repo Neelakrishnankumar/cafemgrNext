@@ -53,7 +53,7 @@ export const api = createApi({
     }),
     // dashboard year month and week total sales get endpoints function
     getYearMonthWeekMetrics: build.query<yearSlase[], void>({
-      query: () => `/api/get/dashbord`,
+      query: () => `/api/get/dashboard`,
       providesTags: ['topcards'],
     }),
     // dashboard year month and week total sales get endpoints function
@@ -62,13 +62,7 @@ export const api = createApi({
       providesTags: ['Saleshistory'],
     }),
     getYearsalesMetrics: build.query<[], void>({
-      query: () => ({
-        url:'http://localhost/server/cafemgr/api/ProductYearSales.php',
-        headers:{
-          Authorization:
-          'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiJCZXhAMTIzIiwibmFtZSI6IkJleCIsImFkbWluIjp0cnVlLCJleHAiOjE2Njk5ODQzNDl9.uxE3r3X4lqV_WKrRKRPXd-Jub9BnVcCXqCtLL4I0fpU',
-        }
-      }),
+      query: () => '/api/get/saleshistory/yearwisesales',
       providesTags: ['Saleshistory'],
     }),
     //

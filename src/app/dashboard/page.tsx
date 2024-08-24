@@ -26,14 +26,14 @@ export default function Page(): React.JSX.Element {
         <Budget diff={12} trend="up" sx={{ height: '100%' }} value="₹242k" />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
-        <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value="₹16k" />
+        {/* <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value="₹16k" /> */}
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
         {/* <TasksProgress sx={{ height: '100%' }} value={75.5} /> */}
-        <Week2DateSales diff={16} trend="up" sx={{ height: '100%' }} value="₹5k" />
+        {/* <Week2DateSales diff={16} trend="up" sx={{ height: '100%' }} value="₹5k" /> */}
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
-        <TotalProfit sx={{ height: '100%' }} value="₹4k" />
+        {/* <TotalProfit sx={{ height: '100%' }} value="₹4k" /> */}
       </Grid>
       <Grid lg={8} xs={12}>
         <Sales sx={{ height: '100%' }} />

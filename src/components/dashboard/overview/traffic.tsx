@@ -8,96 +8,99 @@ import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
 import type { SxProps } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import type { Icon } from '@phosphor-icons/react/dist/lib/types';
-import { Desktop as DesktopIcon } from '@phosphor-icons/react/dist/ssr/Desktop';
-import { DeviceTablet as DeviceTabletIcon } from '@phosphor-icons/react/dist/ssr/DeviceTablet';
-import { Phone as PhoneIcon } from '@phosphor-icons/react/dist/ssr/Phone';
 import type { ApexOptions } from 'apexcharts';
-
+import { useAppSelector } from '@/app/redux';
 import { Chart } from '@/components/core/chart';
-import { useGetWeekDaysMetricsQuery } from '@/state/api';
-// 
-const iconMapping = { Desktop: DesktopIcon, Tablet: DeviceTabletIcon, Phone: PhoneIcon } as Record<string, Icon>;
 
-export interface TrafficProps {
-  chartSeries: number[];
-  labels: string[];
-  sx?: SxProps;
+// Define SalesRecord and AggregatedSales interfaces
+interface SalesRecord {
+  LocationID: string;
+  WeekDays: string;
+  SalesValue: string;
 }
 
+const salesData: SalesRecord[] = [
+  { LocationID: "1034", WeekDays: "Monday", SalesValue: "76036.20" },
+  { LocationID: "1036", WeekDays: "Monday", SalesValue: "73369.09" },
+  { LocationID: "1035", WeekDays: "Monday", SalesValue: "69742.21" },
+  { LocationID: "1034", WeekDays: "Tuesday", SalesValue: "6036.20" },
+  { LocationID: "1036", WeekDays: "Tuesday", SalesValue: "73369.09" },
+  { LocationID: "1035", WeekDays: "Tuesday", SalesValue: "69742.21" },
+  { LocationID: "1034", WeekDays: "Wednesday", SalesValue: "6036.20" },
+  { LocationID: "1036", WeekDays: "Wednesday", SalesValue: "73369.09" },
+  { LocationID: "1035", WeekDays: "Wednesday", SalesValue: "69742.21" },
+  { LocationID: "1034", WeekDays: "Thursday", SalesValue: "6036.20" },
+  { LocationID: "1036", WeekDays: "Thursday", SalesValue: "73369.09" },
+  { LocationID: "1035", WeekDays: "Thursday", SalesValue: "69742.21" },
+  { LocationID: "1034", WeekDays: "Friday", SalesValue: "6036.20" },
+  { LocationID: "1036", WeekDays: "Friday", SalesValue: "73369.09" },
+  { LocationID: "1035", WeekDays: "Friday", SalesValue: "69742.21" }
+];
 
+interface AggregatedSales {
+  LocationID: string;
+  WeekDays: string;
+  SalesValue: number;
+}
 
-export function Traffic({ chartSeries, labels, sx }: TrafficProps): React.JSX.Element {
-  
-  const {data , isLoading } = useGetWeekDaysMetricsQuery();
+// Function to aggregate sales data (without using hooks)
+function aggregateSales(data: SalesRecord[]): AggregatedSales[] {
+  const aggregated: Record<string, AggregatedSales> = data.reduce((acc, item) => {
+    const key = `${item.WeekDays}`;
 
-  const chartData = data?.data || [];
+    if (!acc[key]) {
+      acc[key] = {
+        LocationID: item.LocationID,
+        WeekDays:item.WeekDays,
+        SalesValue: 0,
+      };
+    }
 
-  const cate = chartData.map((a ) =>  {
-    if(a.WeekDays == 0){
-      return 'Mon'
-    } 
-    if(a.WeekDays == 1){
-      return 'Tus'
-    } 
-    if(a.WeekDays == 2){
-      return 'Wen'
-    } 
-    if(a.WeekDays == 3){
-      return 'Ths'
-    } 
-    if(a.WeekDays == 4){
-      return 'Fri'
-    } 
-    if(a.WeekDays == 5){
-      return 'Sat'
-    } 
-    if(a.WeekDays == 6){
-      return 'Sun'
-    } 
-  
-  })
-  const chartOptions = useChartOptions(cate);
+    acc[key].SalesValue += Number(item.SalesValue);
+    return acc;
+  }, {} as Record<string, AggregatedSales>);
 
+  return Object.values(aggregated);
+}
+
+export function Traffic({ chartSeries, labels, sx }: { chartSeries: number[]; labels: string[]; sx?: SxProps }) {
+  const theme = useTheme(); // Hook inside the component
+  const aggregatedSales = aggregateSales(salesData); // No hook here
+
+  const location = useAppSelector((state) => state.global.block); // Hook inside the component
+
+  let locationFilteredValue = aggregatedSales;
+  if (location !== '0') {
+    locationFilteredValue = aggregatedSales.filter((item) => item.LocationID === location);
+  }
+
+  const cate = locationFilteredValue.map((a) => `${a.WeekDays}`);
+  const chartOptions = useChartOptions(cate, theme);
 
   return (
     <Card sx={sx}>
       <CardHeader title="Week Days Sales" />
       <CardContent>
         <Stack spacing={2}>
-          {isLoading ? <>Loading...</> : <Chart height={300} options={chartOptions} series={chartData.map((a ) => Number(a.SalesValue))} type="donut" width="100%" />}
-         
-          {/* <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-            {chartSeries.map((item, index) => {
-              const label = labels[index];
-              const Icon = iconMapping[label];
-
-              return (
-                <Stack key={label} spacing={1} sx={{ alignItems: 'center' }}>
-                  {Icon ? <Icon fontSize="var(--icon-fontSize-lg)" /> : null}
-                  <Typography variant="h6">{label}</Typography>
-                  <Typography color="text.secondary" variant="subtitle2">
-                    {item}%
-                  </Typography>
-                </Stack>
-              );
-            })}
-          </Stack> */}
+          <Chart
+            height={300}
+            options={chartOptions}
+            series={locationFilteredValue.map((a) => a.SalesValue)}
+            type="donut"
+            width="100%"
+          />
         </Stack>
       </CardContent>
     </Card>
   );
 }
 
-function useChartOptions(labels: any): ApexOptions {
-  const theme = useTheme();
-
+function useChartOptions(labels: any, theme: any): ApexOptions {
   return {
     chart: { background: 'transparent' },
-    // colors: [theme.palette.primary.main, theme.palette.success.main, theme.palette.warning.main],
     dataLabels: { enabled: false },
     labels,
-    legend: { show: true ,position:'bottom' },
+    legend: { show: true, position: 'bottom' },
     plotOptions: { pie: { expandOnClick: false } },
     states: { active: { filter: { type: 'none' } }, hover: { filter: { type: 'none' } } },
     stroke: { width: 0 },

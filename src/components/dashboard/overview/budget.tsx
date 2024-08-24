@@ -25,26 +25,28 @@ export function Budget({ diff, trend, sx, value }: BudgetProps): React.JSX.Eleme
   const TrendIcon = trend === 'up' ? ArrowUpIcon : ArrowDownIcon;
   const trendColor = trend === 'up' ? 'var(--mui-palette-success-main)' : 'var(--mui-palette-error-main)';
 
-  const  {data ,isLoading } = useGetYearMonthWeekMetricsQuery()
+  const  {data ,isLoading } = useGetYearMonthWeekMetricsQuery();
 
-  const salseData = data || []
-  let yearSalesAll = 0
+  const salseData = data || [];
+  let yearSalesAll = 0;
 
 
 
   const block = useAppSelector((state) => state.global.block);
+  if (!isLoading && salseData.length > 0 && salseData[0]) {
+    const salesBlock3 = Number(salseData[0]['DB_Y2DSALESBLOCK3']);
+    const salesBlock5 = Number(salseData[0]['DB_Y2DSALESBLOCK5']);
+    const salesBlock9 = Number(salseData[0]['DB_Y2DSALESBLOCK9']);
 
-  if(!isLoading && block == '0'){
-    yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3']) +  Number(salseData[0]['DB_Y2DSALESBLOCK5']) +  Number(salseData[0]['DB_Y2DSALESBLOCK9'])
-  }
-  if(!isLoading && block == '3'){
-    yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK3'])
-  }
-  if(!isLoading && block == '5'){
-    yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK5'])
-  }
-  if(!isLoading && block == '9'){
-    yearSalesAll = Number(salseData[0]['DB_Y2DSALESBLOCK9'])
+    if (block === '0') {
+      yearSalesAll = salesBlock3 + salesBlock5 + salesBlock9;
+    } else if (block === '1034') {
+      yearSalesAll = salesBlock3;
+    } else if (block === '1036') {
+      yearSalesAll = salesBlock5;
+    } else if (block === '1035') {
+      yearSalesAll = salesBlock9;
+    }
   }
 
   function formatNumber(num: number): string {

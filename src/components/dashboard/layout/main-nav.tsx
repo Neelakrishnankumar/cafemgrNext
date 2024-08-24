@@ -25,9 +25,9 @@ import { useUser } from '@/hooks/use-user';
 
 const states = [
   { value: '0',label: 'All' },
-  { value: '3', label: 'Block 3' },
-  { value: '5', label: 'Block 5' },
-  { value: '9', label: 'Block 9' },
+  { value: '1034', label: 'Block 3' },
+  { value: '1036', label: 'Block 5' },
+  { value: '1035', label: 'Block 9' },
 ] as const;
 
 

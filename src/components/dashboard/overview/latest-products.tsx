@@ -37,7 +37,71 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
   const disatch = useAppDispatch();
 
   const { data, isLoading } = useGetSalesMetricsQuery();
-  const CategorySummary = data?.data || [];
+
+  console.log('API data:', data);
+  const CategorySummary = data?.data || []
+
+  interface SalesRecord {
+    CategoryID: string;  
+    CategoryName: string;
+    SalesValue: string;
+  }
+
+  interface AggregatedSales {
+    CategoryID: string;    
+    CategoryName: string;
+    SalesValue: any;
+  
+  }
+  
+  function aggregateSales(data: SalesRecord[]): AggregatedSales[] {
+    // Reduce to aggregate sales by location and product
+    const aggregated: Record<string, AggregatedSales> = data.reduce((acc, item) => {
+      const key = `${item.CategoryName}`;
+  
+      if (!acc[key]) {
+        acc[key] = {
+           CategoryName: item.CategoryName,
+           CategoryID: item.CategoryID,
+           SalesValue: 0
+        };
+      }
+  
+      acc[key].SalesValue += Number(item.SalesValue);
+      acc[key].SalesValue = parseFloat(acc[key].SalesValue.toFixed(2));
+  
+      return acc;
+    }, {} as Record<string, AggregatedSales>);
+  
+    // Convert the aggregated object to an array
+    return Object.values(aggregated);
+  }
+  
+  const aggregatedSales = aggregateSales(CategorySummary);
+  
+  console.log('Aggregated Sales:', aggregatedSales);
+  
+
+  const location = useAppSelector((state) => state.global.block);
+  
+  
+ let  loactionFilterdValue: any = []
+  
+ if(location != '0'){
+
+    loactionFilterdValue = CategorySummary.filter(item => item.LocationID == location);
+ }
+
+ if(location == '0'){
+
+  loactionFilterdValue = aggregatedSales;
+}
+
+
+  
+ 
+
+  
   return (
     <Card sx={sx}>
       <CardHeader title="Product category performance" />
@@ -46,12 +110,12 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
         <>Loading...</>
       ) : (
         <List style={{ maxHeight: '600px', overflow: 'auto' }}>
-          {CategorySummary.map((product: any, index) => (
+          {loactionFilterdValue.map((product: any, index: any) => (
             <ListItem
               divider={index < products.length - 1}
               key={product.CategoryID}
               sx={{
-                backgroundColor: index % 2 === 0 ? 'background.paper' : 'grey.400',
+                backgroundColor: index % 2 === 0 ? 'grey.400' : 'background.paper',
               }}
             >
               {/* <ListItemAvatar>

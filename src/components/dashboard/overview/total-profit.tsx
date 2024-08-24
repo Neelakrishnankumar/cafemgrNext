@@ -28,13 +28,13 @@ export function TotalProfit({ value, sx }: TotalProfitProps): React.JSX.Element 
   if(!isLoading && block == '0'){
     SalesAll = (Number(salseData[0]['DB_LWDSALESBLOCK3']) +  Number(salseData[0]['DB_LWDSALESBLOCK5']) +  Number(salseData[0]['DB_LWDSALESBLOCK9']))
   }
-  if(!isLoading && block == '3'){
+  if(!isLoading && block == '1034'){
     SalesAll = Number(salseData[0]['DB_LWDSALESBLOCK3'])
   }
-  if(!isLoading && block == '5'){
+  if(!isLoading && block == '1036'){
     SalesAll = Number(salseData[0]['DB_LWDSALESBLOCK5']) 
   }
-  if(!isLoading && block == '9'){
+  if(!isLoading && block == '1035'){
     SalesAll = Number(salseData[0]['DB_LWDSALESBLOCK9'])
   }
 

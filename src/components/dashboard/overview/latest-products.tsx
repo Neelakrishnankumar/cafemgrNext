@@ -115,7 +115,7 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
               divider={index < products.length - 1}
               key={product.CategoryID}
               sx={{
-                backgroundColor: index % 2 === 0 ? 'grey.400' : 'background.paper',
+                backgroundColor: index % 2 === 0 ? '#90EE90' : 'background.paper',
               }}
             >
               {/* <ListItemAvatar>

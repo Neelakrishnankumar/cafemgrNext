@@ -67,7 +67,7 @@ export function LatestOrders({ orders = [], sx }: LatestOrdersProps): React.JSX.
                 
                 <TableRow hover key={order.ProductID}
                 sx={{
-                    backgroundColor: index % 2 === 0 ? 'grey.400' : 'background.paper',
+                    backgroundColor: index % 2 === 0 ? '#90EE90' : 'background.paper',
                   }}
                 >
                   <TableCell>{order.ProductName}</TableCell>

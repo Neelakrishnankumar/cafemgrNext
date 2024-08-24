@@ -38,7 +38,6 @@ const salesData: SalesRecord[] = [
 ];
 
 interface AggregatedSales {
-  LocationID: string;
   WeekDays: string;
   SalesValue: number;
 }
@@ -50,7 +49,6 @@ function aggregateSales(data: SalesRecord[]): AggregatedSales[] {
 
     if (!acc[key]) {
       acc[key] = {
-        LocationID: item.LocationID,
         WeekDays:item.WeekDays,
         SalesValue: 0,
       };
@@ -64,18 +62,31 @@ function aggregateSales(data: SalesRecord[]): AggregatedSales[] {
 }
 
 export function Traffic({ chartSeries, labels, sx }: { chartSeries: number[]; labels: string[]; sx?: SxProps }) {
+
+
   const theme = useTheme(); // Hook inside the component
   const aggregatedSales = aggregateSales(salesData); // No hook here
 
   const location = useAppSelector((state) => state.global.block); // Hook inside the component
+  console.log("🚀 ~ Traffic ~ location:", location)
 
-  let locationFilteredValue = aggregatedSales;
-  if (location !== '0') {
-    locationFilteredValue = aggregatedSales.filter((item) => item.LocationID === location);
+  let locationFilteredValue: any = [];
+  let locationFilteredValuecate: any = [];
+  if (location != '0') {
+    locationFilteredValue = salesData.filter((item) => item.LocationID == location);
+    locationFilteredValuecate = locationFilteredValue.map((a: any) => `${a.WeekDays}`);
+    locationFilteredValue = locationFilteredValue.map((a : any) => Number(a.SalesValue));
+
   }
 
-  const cate = locationFilteredValue.map((a) => `${a.WeekDays}`);
-  const chartOptions = useChartOptions(cate, theme);
+  if (location == '0') {
+    locationFilteredValuecate = aggregatedSales.map((a: any) => `${a.WeekDays}`);
+    locationFilteredValue = aggregatedSales.map((a : any) => Number(a.SalesValue));
+
+  }
+  
+
+  const chartOptions = useChartOptions(locationFilteredValuecate, theme);
 
   return (
     <Card sx={sx}>
@@ -85,7 +96,7 @@ export function Traffic({ chartSeries, labels, sx }: { chartSeries: number[]; la
           <Chart
             height={300}
             options={chartOptions}
-            series={locationFilteredValue.map((a) => a.SalesValue)}
+            series={locationFilteredValue}
             type="donut"
             width="100%"
           />

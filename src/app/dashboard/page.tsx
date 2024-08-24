@@ -2,7 +2,6 @@ import * as React from 'react';
 import type { Metadata } from 'next';
 import Grid from '@mui/material/Unstable_Grid2';
 import dayjs from 'dayjs';
-
 import { config } from '@/config';
 import { Budget } from '@/components/dashboard/overview/budget';
 import { LatestOrders } from '@/components/dashboard/overview/latest-orders';
@@ -26,20 +25,20 @@ export default function Page(): React.JSX.Element {
         <Budget diff={12} trend="up" sx={{ height: '100%' }} value="₹242k" />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
-        {/* <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value="₹16k" /> */}
+        <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value="₹16k" />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
         {/* <TasksProgress sx={{ height: '100%' }} value={75.5} /> */}
-        {/* <Week2DateSales diff={16} trend="up" sx={{ height: '100%' }} value="₹5k" /> */}
+        <Week2DateSales diff={16} trend="up" sx={{ height: '100%' }} value="₹5k" />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
-        {/* <TotalProfit sx={{ height: '100%' }} value="₹4k" /> */}
+        <TotalProfit sx={{ height: '100%' }} value="₹4k" />
       </Grid>
       <Grid lg={8} xs={12}>
         <Sales sx={{ height: '100%' }} />
       </Grid>
       <Grid lg={4} md={6} xs={12}>
-        {/* <Traffic chartSeries={[63, 15, 22]} labels={['Sales', 'Lap', 'Phone']} sx={{ height: '100%' }} /> */}
+        <Traffic chartSeries={[63, 15, 22]} labels={['Sales', 'Lap', 'Phone']} sx={{ height: '100%' }} />
       </Grid>
       <Grid lg={4} md={6} xs={12}>
         <LatestProducts

@@ -141,7 +141,7 @@ export function LatestProducts({ products = [], sx }: LatestProductsProps): Reac
               <Button
                 variant="text"
                 sx={{ textAlign: 'right' }}
-                onClick={() => disatch(getProductMetrics(Number(product.CategoryID)))}
+                onClick={() => disatch(getProductMetrics({id:Number(product.CategoryID),LocationID:Number(product.LocationID)}))}
               >
                 ₹{product.SalesValue}
               </Button>

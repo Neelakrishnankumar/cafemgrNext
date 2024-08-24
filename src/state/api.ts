@@ -10,7 +10,7 @@ interface productCategory {
   CategoryID: string;
   CategoryName: string;
   SalesValue: string;
-  SlNo: number;
+  LocationID: string;
 }
 
 interface weekdays {

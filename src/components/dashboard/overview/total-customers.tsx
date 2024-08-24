@@ -33,17 +33,20 @@ export function TotalCustomers({ diff, trend, sx, value }: TotalCustomersProps):
   
   const block = useAppSelector((state) => state.global.block);
 
-  if(!isLoading && block == '0'){
-    monthSalesAll = (Number(salseData[0]['DB_M2DSALESBLOCK3']) +  Number(salseData[0]['DB_M2DSALESBLOCK5']) +  Number(salseData[0]['DB_M2DSALESBLOCK9']))
-  }
-  if(!isLoading && block == '1034'){
-    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK3'])
-  }
-  if(!isLoading && block == '1036'){
-    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK5'])
-  }
-  if(!isLoading && block == '1035'){
-    monthSalesAll = Number(salseData[0]['DB_M2DSALESBLOCK9'])
+  // Check if salseData[0] exists before accessing properties
+  if (!isLoading && salseData.length > 0 && salseData[0]) {
+    if (block === '0') {
+      monthSalesAll =
+        (Number(salseData[0]?.['DB_M2DSALESBLOCK3']) +
+        Number(salseData[0]?.['DB_M2DSALESBLOCK5']) +
+        Number(salseData[0]?.['DB_M2DSALESBLOCK9']));
+    } else if (block === '1034') {
+      monthSalesAll = Number(salseData[0]?.['DB_M2DSALESBLOCK3']);
+    } else if (block === '1036') {
+      monthSalesAll = Number(salseData[0]?.['DB_M2DSALESBLOCK5']);
+    } else if (block === '1035') {
+      monthSalesAll = Number(salseData[0]?.['DB_M2DSALESBLOCK9']);
+    }
   }
 
   function formatNumber(num: number): string {
